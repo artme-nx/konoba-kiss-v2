@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Konoba Kiss — Pašman · Otočne večeri uz more</title>
+<meta name="description" content="Konoba Kiss, Pašman — obiteljska konoba na mirnom otoku. Svježa riba, janjetina ispod peke, domaće i maslinovo ulje, pod svjetlom fenjera dok pada sumrak nad kanalom." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=EB+Garamond:ital@0;1&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#11161A;
+    --bg-2:#161D22;
+    --bg-3:#1B242A;
+    --gold:#C9A24B;
+    --gold-soft:#D9BE80;
+    --olive:#7E8C5A;
+    --cream:#EFE7D6;
+    --cream-dim:#B9B2A2;
+    --line:rgba(201,162,75,.22);
+    --font-display:'Fraunces', Georgia, serif;
+    --font-serif:'EB Garamond', Georgia, serif;
+    --font-body:'DM Sans', system-ui, sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--cream);font-family:var(--font-body);font-size:17px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body.lock{overflow:hidden}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:400;line-height:1.06;letter-spacing:-.01em}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 36px}
+  .eyebrow{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.26em;font-size:11px;color:var(--gold);font-weight:500}
+  section{position:relative;z-index:2}
+
+  /* Header */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px 36px;transition:background .4s, padding .4s, box-shadow .4s}
+  header.scrolled{background:rgba(17,22,26,.86);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:14px 36px}
+  .logo{font-family:var(--font-display);font-size:25px;letter-spacing:.01em;color:var(--cream)}
+  .logo span{font-style:italic;color:var(--gold)}
+  nav.main{display:flex;gap:32px;align-items:center}
+  nav.main a{text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--cream);opacity:.78;transition:opacity .3s,color .3s}
+  nav.main a:hover{opacity:1;color:var(--gold-soft)}
+  .btn-res{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.14em;font-size:11px;font-weight:500;color:var(--bg);background:var(--gold);padding:12px 22px;border-radius:2px;cursor:pointer;border:none;transition:background .3s,transform .3s}
+  .btn-res:hover{background:var(--gold-soft);transform:translateY(-1px)}
+  .menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
+  .menu-toggle span{width:24px;height:1.5px;background:var(--cream);display:block}
+
+  /* Hero */
+  .hero{height:100vh;min-height:660px;position:relative;display:flex;align-items:flex-end;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+  .hero-bg img{width:100%;height:100%;object-fit:cover}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,17,.55),rgba(10,14,17,.25) 38%,rgba(17,22,26,.95))}
+  .hero-inner{position:relative;z-index:2;padding:0 0 9vh;max-width:1000px}
+  .hero .eyebrow{color:var(--gold-soft);margin-bottom:24px}
+  .hero h1{font-size:clamp(50px,9vw,118px);color:var(--cream);line-height:.98}
+  .hero h1 .it{font-style:italic;color:var(--gold-soft)}
+  .hero-sub{font-family:var(--font-serif);font-style:italic;font-size:clamp(20px,2.7vw,30px);margin-top:26px;color:var(--cream-dim);max-width:560px}
+  .word{display:inline-block;overflow:hidden;vertical-align:top}
+  .word i{display:inline-block;font-style:inherit}
+  .scroll-ind{position:absolute;right:36px;bottom:36px;z-index:3;color:var(--cream-dim);font-size:10px;letter-spacing:.22em;text-transform:uppercase;display:flex;align-items:center;gap:12px}
+  .scroll-ind .line{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-soft));animation:slide 2.6s ease-in-out infinite}
+  @keyframes slide{0%,100%{opacity:.4;transform:scaleX(.6)}50%{opacity:1;transform:scaleX(1)}}
+
+  /* horizon svg accent */
+  .horizon{display:block;width:100%;height:30px;color:var(--gold);opacity:.5}
+
+  /* Manifest */
+  .manifest{padding:130px 0 110px;text-align:center}
+  .manifest p{font-family:var(--font-display);font-size:clamp(26px,3.6vw,42px);line-height:1.34;max-width:820px;margin:30px auto 0;color:var(--cream)}
+  .manifest p .it{font-style:italic;color:var(--gold-soft)}
+
+  /* Menu */
+  .menu{padding:100px 0;background:var(--bg-2)}
+  .section-head{margin-bottom:64px}
+  .section-head.center{text-align:center}
+  .section-head h2{font-size:clamp(38px,5.4vw,66px);margin-top:14px;color:var(--cream)}
+  .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 80px;max-width:1000px;margin:0 auto}
+  .menu-cat{margin-bottom:36px}
+  .menu-cat h3{font-family:var(--font-serif);font-style:italic;font-size:27px;color:var(--gold-soft);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+  .dish{margin-bottom:22px}
+  .dish .name{font-family:var(--font-display);font-size:21px;color:var(--cream)}
+  .dish .desc{font-size:14.5px;color:var(--cream-dim);line-height:1.55;margin-top:4px}
+  .menu-note{text-align:center;margin-top:26px;font-family:var(--font-serif);font-style:italic;font-size:19px;color:#8c8576}
+
+  /* Story */
+  .story{padding:120px 0}
+  .story-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:66px;align-items:center}
+  .story-img{position:relative;overflow:hidden;border-radius:3px;box-shadow:0 30px 70px -34px rgba(0,0,0,.8)}
+  .story-img img{width:100%;height:580px;object-fit:cover;filter:brightness(.92) contrast(1.04)}
+  .story-text h2{font-size:clamp(36px,4.8vw,58px);margin:16px 0 26px;color:var(--cream)}
+  .story-text p{color:var(--cream-dim);margin-bottom:18px;max-width:520px}
+  .story-text .sign{font-family:var(--font-serif);font-style:italic;font-size:24px;color:var(--gold-soft);margin-top:22px}
+
+  /* Gallery */
+  .gallery{padding:100px 0;background:var(--bg-2)}
+  .g-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:16px}
+  .g-grid figure{position:relative;overflow:hidden;border-radius:3px}
+  .g-grid img{width:100%;height:100%;object-fit:cover;filter:brightness(.78) contrast(1.05) saturate(.95);transition:transform 1s ease,filter 1s ease}
+  .g-grid figure:hover img{transform:scale(1.05);filter:brightness(.95) contrast(1.05) saturate(1.02)}
+  .g-grid figcaption{position:absolute;left:16px;bottom:14px;color:var(--cream);font-family:var(--font-serif);font-style:italic;font-size:16px;opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+  .g-grid figure:hover figcaption{opacity:1;transform:translateY(0)}
+  .g-grid .tall{grid-row:span 2}.g-grid .wide{grid-column:span 2}
+
+  /* Location */
+  .location{padding:120px 0}
+  .loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .loc-text h2{font-size:clamp(36px,4.8vw,58px);margin:14px 0 24px;color:var(--cream)}
+  .loc-text p{color:var(--cream-dim);margin-bottom:16px;max-width:480px}
+  .loc-info{margin-top:30px;display:grid;gap:18px}
+  .loc-info .row{display:flex;gap:14px;align-items:baseline}
+  .loc-info .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);min-width:128px;font-weight:500}
+  .loc-info .val{font-family:var(--font-display);font-size:20px;color:var(--cream)}
+  .loc-info .val a{border-bottom:1px solid var(--line)}
+  .map-wrap{border-radius:3px;overflow:hidden;height:460px;box-shadow:0 30px 70px -38px rgba(0,0,0,.8)}
+  .map-wrap iframe{width:100%;height:100%;border:0;filter:grayscale(.3) brightness(.85) contrast(1.05)}
+
+  /* CTA band */
+  .cta-band{padding:110px 0;text-align:center;background:var(--bg-3);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .cta-band h2{font-size:clamp(34px,5vw,58px);color:var(--cream);margin-bottom:14px}
+  .cta-band h2 .it{font-style:italic;color:var(--gold-soft)}
+  .cta-band p{color:var(--cream-dim);max-width:520px;margin:0 auto 30px}
+
+  /* Footer */
+  footer{background:var(--bg);padding:80px 0 40px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:50px}
+  footer .logo{font-size:30px;margin-bottom:16px}
+  footer p{color:var(--cream-dim);font-size:15px;max-width:340px}
+  footer h4{font-family:var(--font-body);text-transform:uppercase;letter-spacing:.16em;font-size:11px;color:var(--gold);margin-bottom:18px}
+  footer .fcol a,footer .fcol div{display:block;color:var(--cream-dim);font-size:15px;margin-bottom:10px;transition:color .3s}
+  footer .fcol a:hover{color:var(--cream)}
+  .foot-phone{font-family:var(--font-display);font-size:22px;color:var(--cream)!important}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:13px;color:#6f6a5d}
+
+  /* Reservation slide-in panel */
+  .panel-overlay{position:fixed;inset:0;background:rgba(8,11,13,.6);backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .4s;z-index:90}
+  .panel-overlay.open{opacity:1;pointer-events:all}
+  .res-panel{position:fixed;top:0;right:0;width:min(440px,100vw);height:100vh;background:var(--bg-2);z-index:100;
+    transform:translateX(100%);transition:transform .5s cubic-bezier(.7,0,.2,1);padding:40px 38px;overflow-y:auto;border-left:1px solid var(--line)}
+  .res-panel.open{transform:translateX(0)}
+  .res-panel .close{position:absolute;top:26px;right:30px;background:none;border:none;color:var(--cream);font-size:26px;cursor:pointer;line-height:1}
+  .res-panel .eyebrow{margin-bottom:14px}
+  .res-panel h3{font-family:var(--font-display);font-size:34px;color:var(--cream);margin-bottom:8px}
+  .res-panel p{color:var(--cream-dim);font-size:15px;margin-bottom:26px}
+  .res-panel label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold);margin:16px 0 7px}
+  .res-panel input,.res-panel textarea,.res-panel select{width:100%;background:var(--bg-3);border:1px solid var(--line);color:var(--cream);
+    padding:12px 14px;border-radius:2px;font-family:var(--font-body);font-size:15px}
+  .res-panel input:focus,.res-panel textarea:focus,.res-panel select:focus{outline:none;border-color:var(--gold)}
+  .res-panel .submit{width:100%;margin-top:26px;background:var(--gold);color:var(--bg);border:none;padding:15px;border-radius:2px;
+    text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:500;cursor:pointer;transition:background .3s}
+  .res-panel .submit:hover{background:var(--gold-soft)}
+  .res-panel .call{margin-top:22px;text-align:center;font-size:14px;color:var(--cream-dim)}
+  .res-panel .call a{color:var(--gold-soft);font-family:var(--font-display);font-size:20px;display:block;margin-top:4px}
+
+  [data-fade]{opacity:0;transform:translateY(26px)}
+
+  @media(max-width:900px){
+    .story-grid,.loc-grid{grid-template-columns:1fr;gap:38px}
+    .story-img img{height:440px}
+    .menu-grid{grid-template-columns:1fr;gap:0 40px}
+    .g-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px}
+  }
+  @media(max-width:680px){
+    .wrap{padding:0 22px}
+    nav.main{position:fixed;inset:0;background:var(--bg);flex-direction:column;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .45s;z-index:60}
+    nav.main.open{transform:translateX(0)}
+    nav.main a{font-size:15px}
+    .menu-toggle{display:flex;z-index:70}
+    header > .btn-res{display:none}
+    nav.main .btn-res{display:inline-block}
+    .g-grid .tall{grid-row:span 1}.g-grid .wide{grid-column:span 2}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    [data-fade]{opacity:1!important;transform:none!important}
+    .word i{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a href="#top" class="logo">Konoba <span>Kiss</span></a>
+  <nav class="main" id="nav">
+    <a href="#prica">Naša priča</a>
+    <a href="#menu">Jelovnik</a>
+    <a href="#galerija">Galerija</a>
+    <a href="#lokacija">Otok</a>
+    <button class="btn-res" data-open-res>Rezerviraj stol</button>
+  </nav>
+  <button class="btn-res" data-open-res>Rezerviraj stol</button>
+  <button class="menu-toggle" id="toggle" aria-label="Izbornik"><span></span><span></span><span></span></button>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?auto=format&fit=crop&w=2000&q=80" alt="Otočni sumrak nad mirnim Jadranom kraj Pašmana" />
+  </div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow" data-hero>Pašman · Obiteljska konoba</div>
+    <h1 data-words>Otok utihne <span class="it">kad padne sumrak</span></h1>
+    <p class="hero-sub" data-hero>Riba iz mora, janjetina ispod peke i svjetlo fenjera — večeri obitelji Kiss na tihom Pašmanu.</p>
+  </div>
+  <div class="scroll-ind"><span>Skrolaj</span><span class="line"></span></div>
+</section>
+
+<svg class="horizon" viewBox="0 0 1200 30" preserveAspectRatio="none" fill="none"><path d="M0 15h520M680 15h520" stroke="currentColor" stroke-width="1"/><circle cx="600" cy="15" r="5" stroke="currentColor" stroke-width="1.2"/><path d="M560 15h28M612 15h28" stroke="currentColor" stroke-width="1"/></svg>
+
+<section class="manifest wrap">
+  <div class="eyebrow" data-fade>Naš manifest</div>
+  <p data-fade>Kiss je obiteljsko prezime. Mi smo konoba na otoku koji ne juri — gdje se večera počinje kad sunce padne za kanal, a završava <span class="it">tek kad priča stane</span>. Kuhamo ono što more da i zemlja rodi, uz maslinovo ulje s vlastitog stabla.</p>
+</section>
+
+<section class="menu" id="menu">
+  <div class="wrap">
+    <div class="section-head center" data-fade>
+      <div class="eyebrow">Otočna dalmatinska kuhinja</div>
+      <h2>Večera uz svjetlo fenjera</h2>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-col">
+        <div class="menu-cat" data-fade>
+          <h3>Iz mora</h3>
+          <div class="dish"><div class="name">Svježa riba na gradele</div><div class="desc">Ulov dana iz kanala, pečen na žaru i preliven maslinovim uljem, uz blitvu s krumpirom.</div></div>
+          <div class="dish"><div class="name">Crni rižoto sa sipom</div><div class="desc">Domaća sipa, riža i njezino crnilo — gusto, morsko, kakvo otok pamti.</div></div>
+          <div class="dish"><div class="name">Hobotnica ispod peke</div><div class="desc">Pečena ispod čripnje i pepela do mekoće, s mladim krumpirom i ružmarinom.</div></div>
+          <div class="dish"><div class="name">Buzara od školjki</div><div class="desc">Dagnje i kapice, bijelo vino, češnjak i peršin, uz domaći kruh za umakanje.</div></div>
+        </div>
+      </div>
+      <div class="menu-col">
+        <div class="menu-cat" data-fade>
+          <h3>Sa zemlje i ognjišta</h3>
+          <div class="dish"><div class="name">Janjetina ispod peke</div><div class="desc">Otočno janje, sporo pečeno ispod peke, s krumpirom koji upija sve sokove.</div></div>
+          <div class="dish"><div class="name">Pašticada s njokima</div><div class="desc">Govedina marinirana u prošeku, kuhana dan ranije, s domaćim njokima.</div></div>
+          <div class="dish"><div class="name">Domaća tjestenina sa šugom</div><div class="desc">Ručno razvučeno tijesto u sporo kuhanom umaku od mesa i rajčice.</div></div>
+        </div>
+        <div class="menu-cat" data-fade>
+          <h3>Domaće i za kraj</h3>
+          <div class="dish"><div class="name">Pršut, sir i masline</div><div class="desc">Dalmatinski pršut, ovčji sir i masline iz našeg maslinika, uz čašu domaćeg.</div></div>
+          <div class="dish"><div class="name">Rožata i smokve u medu</div><div class="desc">Domaća rožata i smokve iz vrta, zaliveni medom s otoka.</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="menu-note" data-fade>Jelovnik se mijenja s ulovom i sezonom — pitajte konobara što je večeras najsvježije.</p>
+  </div>
+</section>
+
+<section class="story" id="prica">
+  <div class="wrap story-grid">
+    <div class="story-img" data-fade>
+      <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1100&q=80" alt="Topla večernja svjetlost nad morem kraj otoka" />
+    </div>
+    <div class="story-text">
+      <div class="eyebrow" data-fade>Naša priča</div>
+      <h2 data-fade>Obitelj Kiss, sumrak i Pašman</h2>
+      <p data-fade>Pašman je zelen, tih otok preko kanala od Biograda i Zadra — maslinici, kamena sela, spori trajekt i benediktinski samostan Ćokovac iznad mora. Tu, daleko od buke, naša obitelj dočekuje goste.</p>
+      <p data-fade>Najljepše je predvečer: fenjeri se pale, more potamni, a stol se puni onim što je dan donio. Recepti su naslijeđeni, ulje je naše, a vrijeme — vrijeme je jedino čega na Pašmanu ima dovoljno.</p>
+      <p class="sign" data-fade>Vidimo se u sumrak. — Obitelj Kiss</p>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="galerija">
+  <div class="wrap">
+    <div class="section-head center" data-fade>
+      <div class="eyebrow">Ambijent</div>
+      <h2>Svjetlo, more i ognjište</h2>
+    </div>
+    <div class="g-grid">
+      <figure class="tall" data-fade><img src="https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=900&q=80" alt="Ribarski brod u sumrak"><figcaption>brod se vraća pred mrak</figcaption></figure>
+      <figure class="wide" data-fade><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80" alt="Stol uz svjetlo svijeća"><figcaption>stol pod svjetlom fenjera</figcaption></figure>
+      <figure data-fade><img src="https://images.unsplash.com/photo-1559304822-9eb2813c9844?auto=format&fit=crop&w=900&q=80" alt="Riba s žara"><figcaption>žar i dim</figcaption></figure>
+      <figure data-fade><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=900&q=80" alt="Čaša crnog vina"><figcaption>vino s brda</figcaption></figure>
+      <figure class="wide" data-fade><img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=1200&q=80" alt="Kamene uličice otočnog sela u sumrak"><figcaption>kameno selo na Pašmanu</figcaption></figure>
+      <figure data-fade><img src="https://images.unsplash.com/photo-1445510491599-c391e8046a68?auto=format&fit=crop&w=900&q=80" alt="Maslinik u večernjem svjetlu"><figcaption>naš maslinik</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="location" id="lokacija">
+  <div class="wrap loc-grid">
+    <div class="loc-text">
+      <div class="eyebrow" data-fade>Otok i kontakt</div>
+      <h2 data-fade>Dođite na Pašman</h2>
+      <p data-fade>Stiže se trajektom iz Biograda na Pašman, pa mirnom otočnom cestom kroz maslinike. Najljepše je doći predvečer i ostati dok se ne upale svjetla nad kanalom.</p>
+      <p data-fade>Za večeru preporučujemo rezervaciju — javit će se netko iz obitelji.</p>
+      <div class="loc-info">
+        <div class="row" data-fade><div class="lbl">Otok</div><div class="val">Pašman, Zadarska županija</div></div>
+        <div class="row" data-fade><div class="lbl">Rezervacije</div><div class="val"><a href="tel:+385915260717">+385 91 526 0717</a></div></div>
+        <div class="row" data-fade><div class="lbl">Radno vrijeme</div><div class="val">Svaki dan · 12:00 – 23:00</div></div>
+        <div class="row" data-fade><div class="lbl">Dolazak</div><div class="val">Trajekt Biograd – Tkon, pa otokom</div></div>
+      </div>
+    </div>
+    <div class="map-wrap" data-fade>
+      <iframe src="https://maps.google.com/maps?q=Konoba+Kiss+Pasman&output=embed" loading="lazy" title="Konoba Kiss Pašman — karta"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2 data-fade>Rezervirajte <span class="it">svoju večer</span></h2>
+    <p data-fade>Mali stol uz more, fenjer i ulov dana. Pošaljite upit ili nas jednostavno nazovite.</p>
+    <button class="btn-res" data-open-res data-fade>Rezerviraj stol</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo">Konoba <span>Kiss</span></div>
+        <p>Obiteljska konoba na mirnom otoku Pašmanu. Otočne dalmatinske večeri uz more, maslinovo ulje i svjetlo fenjera.</p>
+      </div>
+      <div class="fcol">
+        <h4>Kontakt</h4>
+        <a href="tel:+385915260717" class="foot-phone">+385 91 526 0717</a>
+        <div>Pašman, otok</div>
+        <div>Zadarska županija, Hrvatska</div>
+      </div>
+      <div class="fcol">
+        <h4>Radno vrijeme</h4>
+        <div>Ponedjeljak – Nedjelja</div>
+        <div>12:00 – 23:00</div>
+        <div>Kuhinja toplo do 22:00</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Konoba Kiss · Pašman</span>
+      <span>More potamni, fenjeri se upale — i otok utihne.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Reservation slide-in panel -->
+<div class="panel-overlay" id="overlay" data-close-res></div>
+<aside class="res-panel" id="resPanel" aria-hidden="true">
+  <button class="close" data-close-res aria-label="Zatvori">×</button>
+  <div class="eyebrow">Rezervacija stola</div>
+  <h3>Vaša otočna večer</h3>
+  <p>Ostavite podatke — javit ćemo se za potvrdu. Ili nas nazovite izravno.</p>
+  <form onsubmit="return false">
+    <label>Ime i prezime</label>
+    <input type="text" placeholder="Vaše ime" />
+    <label>Broj gostiju</label>
+    <select><option>2 osobe</option><option>3 osobe</option><option>4 osobe</option><option>5 – 6 osoba</option><option>Više od 6</option></select>
+    <label>Datum i vrijeme</label>
+    <input type="text" placeholder="npr. 20.07. u 20:00" />
+    <label>Poruka (nije obavezno)</label>
+    <textarea rows="3" placeholder="Posebne želje, alergije…"></textarea>
+    <button class="submit" data-open-call>Pošalji upit</button>
+  </form>
+  <div class="call">Radije telefonom?<a href="tel:+385915260717">+385 91 526 0717</a></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Header
+  var header=document.getElementById('header');
+  function onScroll(){ if(window.scrollY>40) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll); onScroll();
+
+  // Mobile nav
+  var toggle=document.getElementById('toggle'), nav=document.getElementById('nav');
+  toggle.addEventListener('click',function(){ nav.classList.toggle('open'); });
+  nav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ nav.classList.remove('open'); }); });
+
+  // Reservation panel
+  var panel=document.getElementById('resPanel'), overlay=document.getElementById('overlay');
+  function openPanel(){ panel.classList.add('open'); overlay.classList.add('open'); document.body.classList.add('lock'); panel.setAttribute('aria-hidden','false'); nav.classList.remove('open'); }
+  function closePanel(){ panel.classList.remove('open'); overlay.classList.remove('open'); document.body.classList.remove('lock'); panel.setAttribute('aria-hidden','true'); }
+  document.querySelectorAll('[data-open-res]').forEach(function(b){ b.addEventListener('click',openPanel); });
+  document.querySelectorAll('[data-close-res]').forEach(function(b){ b.addEventListener('click',closePanel); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') closePanel(); });
+  var callBtn=document.querySelector('[data-open-call]'); if(callBtn) callBtn.addEventListener('click',function(){ window.location.href='tel:+385915260717'; });
+
+  // Word-split hero
+  var h1=document.querySelector('[data-words]');
+  if(h1 && !reduce){
+    var nodes=Array.prototype.slice.call(h1.childNodes), out=[];
+    nodes.forEach(function(n){
+      if(n.nodeType===3){
+        n.textContent.split(/(\s+)/).forEach(function(w){
+          if(w.trim()==='') out.push(document.createTextNode(w));
+          else { var s=document.createElement('span'); s.className='word'; s.innerHTML='<i>'+w+'</i>'; out.push(s); }
+        });
+      } else if(n.classList && n.classList.contains('it')){
+        n.textContent.split(/(\s+)/).forEach(function(w){
+          if(w.trim()==='') out.push(document.createTextNode(w));
+          else { var s=document.createElement('span'); s.className='word it'; s.style.fontStyle='italic'; s.innerHTML='<i style="font-style:italic">'+w+'</i>'; out.push(s); }
+        });
+      } else out.push(n);
+    });
+    h1.innerHTML=''; out.forEach(function(o){ h1.appendChild(o); });
+  }
+
+  if(reduce) return;
+
+  // Lenis — snappy
+  var lenis=new Lenis({ lerp:0.2, wheelMultiplier:1, smoothWheel:true, syncTouch:false });
+  function raf(t){ lenis.raf(t); requestAnimationFrame(raf); } requestAnimationFrame(raf);
+
+  if(window.gsap && window.ScrollTrigger){
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Hero breathing zoom
+    gsap.fromTo('.hero-bg img',{scale:1.08},{scale:1,duration:6,ease:'power1.out'});
+
+    // Word reveal
+    gsap.from('[data-words] .word i',{yPercent:110,duration:1,stagger:0.09,ease:'power3.out',delay:0.3});
+    gsap.from('[data-hero]',{opacity:0,y:24,duration:1.1,stagger:0.18,ease:'power3.out',delay:0.7});
+
+    // Fade reveals
+    gsap.utils.toArray('[data-fade]').forEach(function(el){
+      gsap.to(el,{y:0,opacity:1,duration:0.95,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+    });
+
+    // Light parallax on story image (no pin)
+    gsap.to('.story-img img',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.story',start:'top bottom',end:'bottom top',scrub:1}});
+
+    // Smooth anchors
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click',function(e){
+        var id=a.getAttribute('href'); if(id.length<2) return;
+        var t=document.querySelector(id); if(!t) return;
+        e.preventDefault(); lenis.scrollTo(t,{offset:-70});
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
